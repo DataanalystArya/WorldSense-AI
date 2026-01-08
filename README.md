@@ -21,7 +21,9 @@ inference, models, and utilities are clearly separated.
 - OpenCV  
 - PyTorch  
 
-### 📂 Project Structure
+
+### 📁 Project Structure
+
 
 WorldSense-AI/
 │
@@ -56,7 +58,6 @@ WorldSense-AI/
 ├── requirements.txt
 ├── main.py
 └── README.md
-
 
 
 ## ▶️ How to Run
