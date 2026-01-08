@@ -25,7 +25,7 @@ def detect_video(video_path, output_path):
         if not ret:
             break
 
-        results = model(frame, conf=0.4)
+        results = model(frame, conf=0.30)
         annotated_frame = results[0].plot()
 
         out.write(annotated_frame)
