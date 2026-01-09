@@ -25,6 +25,7 @@ inference, models, and utilities are clearly separated.
 ### 📁 Project Structure
 
 
+
 WorldSense-AI/
 │
 ├── inference/
@@ -125,3 +126,4 @@ GIF generated from object detection on a highway traffic video:
 
 ### Author
 Built with ❤️ by Arya Verma
+# minor update
