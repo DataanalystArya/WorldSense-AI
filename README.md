@@ -7,52 +7,29 @@ models,inference pipelines,scene understanding
 ,reasoning and utilities are all clearly separated.The focus of this project is not only “what is visible”, but also “what is happening, why it is happening, and what this scene means.”
 
 ### Features Implemented
-Features Implemented
-Core Detection:-
--Image Object Detection (YOLOv8)
--Video Object Detection (single & batch)
--Multi-object detection
--Automatic saving of output images and videos
--CLI-based execution
+### Core Detection:
+Image Object Detection (YOLOv8), Video Object Detection (single & batch), Multi-object detection, Automatic saving of output images and videos, CLI-based execution
 
-Scene Intelligence (New):-
--Video-level scene understanding using CLIP
--Confusion-aware scene output (top competing scenes)
--Confidence-level estimation (LOW / MEDIUM / HIGH)
--Human-readable “WHY” explanations for predictions
+### Scene Intelligence (New):
+Video-level scene understanding using CLIP, Confusion-aware scene output (top competing scenes), Confidence-level estimation (LOW / MEDIUM / HIGH), Human-readable “WHY” explanations for predictions
 
-Live & Real-Time (Experimental):-
--Live webcam object detection
--Real-time inference loop (OpenCV based)
+### Live & Real-Time (Experimental):
+Live webcam object detection, Real-time inference loop (OpenCV based)
 
-Image Reasoning:-
--Reasoning over objects and context in an image
--Structured JSON-based outputs
--Answers questions like:
-“What is happening in this image?”
+### Image Reasoning:
+Reasoning over objects and context in an image, Structured JSON-based outputs, Answers questions like “What is happening in this image?”
 
-Zero-Shot Intelligence (CLIP-based):-
--Uses CLIP vision–language embeddings
--Can reason about unseen or unknown scenes
--No hardcoded labels required
+### Zero-Shot Intelligence (CLIP-based):
+Uses CLIP vision–language embeddings, Can reason about unseen or unknown scenes, No hardcoded labels required
 
-Voice Interface (Experimental):-
--Voice input support
--Voice-based output responses
--Foundation for a multimodal AI assistant
+### Voice Interface (Experimental):
+Voice input support, Voice-based output responses, Foundation for a multimodal AI assistant
 
-Structured Outputs:-
--Clean and readable JSON output
--Confidence scores
--Top scene candidates
--Reasoning and explanations
+### Structured Outputs:
+Clean and readable JSON output, Confidence scores, Top scene candidates, Reasoning and explanations
 
 ### Tech Stack
--Python
--YOLOv8 (Ultralytics)
--OpenCV
--PyTorch
--CLIP (Vision-Language Model)
+-Python,YOLOv8 (Ultralytics),OpenCV,PyTorch,CLIP (Vision-Language Model)
 
 ## ▶️ How to Run
 ### 1. Create virtual environment & install dependencies:-
@@ -109,17 +86,12 @@ GIF generated from object detection on a highway traffic video:
 How to Run (Voice + Zero-Shot Reasoning)
 ### Activate Virtual Environment
 source venv310/bin/activate
-Voice-based features currently run in venv310
+[Voice-based features currently run in venv310]
 (due to microphone + speech dependencies)
 
 ### Video Scene Understanding run:-
 python main.py
-This will:
-Extract video frames
-Identify the scene
-Generate confidence-aware predictions
-Produce human-readable explanations
-Save structured JSON outputs
+This will:Extract video frames,Identify the scene,Generate confidence-aware predictions,Produce,human-readable explanations,Save structured JSON outputs
 
 ### Image Reasoning
 Image reasoning results are automatically saved to:
@@ -129,12 +101,7 @@ output/image_reasoning/
 python voice/voice_input.py
 
 ### Future Work
-Object tracking (DeepSORT / ByteTrack)
-Event-level understanding
-Temporal memory & video Q&A
-Voice-based interaction
-Web dashboard (Streamlit)
-Performance analytics & logs
+Object tracking (DeepSORT / ByteTrack),Event-level understanding,Temporal memory & video Q&A,Voice-based interaction,Web dashboard (Streamlit),Performance analytics & logs
 
 ### Author
 Built with ❤️ by Arya Verma
