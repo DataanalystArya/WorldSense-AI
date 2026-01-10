@@ -4,6 +4,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # ===============================
 # Virtual environments
@@ -11,6 +12,7 @@ __pycache__/
 venv/
 ENV/
 .env
+venv310/
 
 # ===============================
 # OS files
@@ -53,3 +55,4 @@ data/images/
 # Temporary files
 # ===============================
 *.log
+models/*.pt
