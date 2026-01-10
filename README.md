@@ -4,9 +4,7 @@ WorldSense-AI
 This project started as my attempt to understand how object detection actually works in real-world systems.
 Instead of writing one long script, I structured this project like an industry-style system, where:
 models,inference pipelines,scene understanding
-,reasoning and utilities are all clearly separated.
-
-The focus of this project is not only “what is visible”, but also “what is happening, why it is happening, and what this scene means.”
+,reasoning and utilities are all clearly separated.The focus of this project is not only “what is visible”, but also “what is happening, why it is happening, and what this scene means.”
 
 ### Features Implemented
 Features Implemented
@@ -56,51 +54,6 @@ Structured Outputs:-
 -PyTorch
 -CLIP (Vision-Language Model)
 
-### 📁 Project Structure
-
-WorldSense-AI/
-│
-├── inference/
-│   ├── detect_image.py
-│   ├── detect_video.py
-│
-├── models/
-│   ├── yolo/              # YOLOv8 loader
-│   ├── clip/              # CLIP model
-│   ├── vit/               # (Planned)
-│   └── ssd/               # (Planned)
-│
-├── utils/
-│   ├── confidence_filter.py
-│   ├── confusion_aware_scene.py
-│   ├── scene_understanding.py
-│   ├── temporal_memory.py
-│   ├── video_frames.py
-│   ├── why_explanations.py
-│   └── visualization.py
-│
-├── voice/
-│   ├── voice_input.py
-│   └── voice_output.py
-│
-├── data/
-│   └── samples/
-│       ├── images/
-│       └── videos/
-│
-├── output/
-│   ├── images/
-│   ├── videos/
-│   └── image_reasoning/
-│
-├── trackers/              # (Future)
-├── training/              # (Future)
-│
-├── main.py
-├── requirements.txt
-└── README.md
-
-
 ## ▶️ How to Run
 ### 1. Create virtual environment & install dependencies:-
 ```bash
@@ -142,7 +95,6 @@ Sample Outputs
 ![Image Detection 2](assets/demo_image2.jpg)
 ![Image Detection 3](assets/demo_image3.jpg)
 
-
 ### 🎥 Video Detection Demo
 ### Market Scene Detection
 GIF generated from object detection on a crowded market video:
@@ -157,7 +109,7 @@ GIF generated from object detection on a highway traffic video:
 How to Run (Voice + Zero-Shot Reasoning)
 ### Activate Virtual Environment
 source venv310/bin/activate
-⚠️ Voice-based features currently run in venv310
+Voice-based features currently run in venv310
 (due to microphone + speech dependencies)
 
 ### Video Scene Understanding run:-
@@ -175,7 +127,6 @@ output/image_reasoning/
 
 ### Voice Interface (Experimental)
 python voice/voice_input.py
-
 
 ### Future Work
 Object tracking (DeepSORT / ByteTrack)
