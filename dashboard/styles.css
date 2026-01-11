@@ -1,0 +1,70 @@
+/* ---------- GLOBAL ---------- */
+body {
+    background-color: #0E1117;
+    color: #E6EDF3;
+    font-family: "Inter", sans-serif;
+}
+
+/* ---------- HEADERS ---------- */
+h1, h2, h3 {
+    color: #E6EDF3;
+}
+
+/* ---------- CARDS ---------- */
+.card {
+    background: #161B22;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    margin-bottom: 15px;
+}
+
+/* ---------- METRICS ---------- */
+.metric-title {
+    font-size: 14px;
+    color: #8B949E;
+}
+.metric-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #58A6FF;
+}
+
+/* ---------- ALERT ---------- */
+.alert-high {
+    background: linear-gradient(135deg, #8B0000, #FF4C4C);
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 18px;
+    text-align: center;
+    color: white;
+}
+
+/* ---------- SCENE BOX ---------- */
+.scene-box {
+    background: linear-gradient(135deg, #0D3B66, #1F6FEB);
+    padding: 16px;
+    border-radius: 14px;
+    color: white;
+}
+
+/* ---------- SIDEBAR ---------- */
+section[data-testid="stSidebar"] {
+    background-color: #0D1117;
+}
+
+/* ---------- CHARTS ---------- */
+.stPlotlyChart, .stBarChart {
+    background: #161B22 !important;
+    border-radius: 14px;
+    padding: 10px;
+}
+body {
+    background-color:#0E1117;
+  }
+  .metric-card {
+    background:#161B22;
+    padding:15px;
+    border-radius:15px;
+  }
+  

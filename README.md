@@ -66,22 +66,6 @@ output/videos/
 To run detection on all videos present in the folder:
 python -m inference.detect_video
 
-### Image Detection Results
-Sample Outputs
-![Image Detection 1](assets/demo_image1.jpg)
-![Image Detection 2](assets/demo_image2.jpg)
-![Image Detection 3](assets/demo_image3.jpg)
-
-### 🎥 Video Detection Demo
-### Market Scene Detection
-GIF generated from object detection on a crowded market video:
-
-![Market Video Detection](assets/demo_video.gif)
-
-### Highway Scene Detection
-GIF generated from object detection on a highway traffic video:
-
-![Highway Video Detection](assets/highway_demo.gif)
 
 How to Run (Voice + Zero-Shot Reasoning)
 ### Activate Virtual Environment
@@ -91,7 +75,7 @@ source venv310/bin/activate
 
 ### Video Scene Understanding run:-
 python main.py
-This will:Extract video frames,Identify the scene,Generate confidence-aware predictions,Produce,human-readable explanations,Save structured JSON outputs
+This will: Extract video frames,Identify the scene,Generate confidence-aware predictions,Produce human-readable explanations,Save structured JSON outputs
 
 ### Image Reasoning
 Image reasoning results are automatically saved to:
