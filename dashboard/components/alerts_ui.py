@@ -2,31 +2,23 @@ import streamlit as st
 import time
 
 def render_alerts(history):
+
     st.subheader("🚨 Alerts")
 
-    if not history or len(history.get("time", [])) == 0:
-        st.info("No alerts detected yet.")
+    if not history["alerts"]:
+        st.success("No alerts detected yet")
         return
 
-    # Last timestamp
-    last_alert_time = history["time"][-1]
+    last_alert = history["alerts"][-1]
 
-    persons = history["persons"][-1]
-    vehicles = history["vehicles"][-1]
-
-    # ---- SIMPLE ALERT LOGIC ----
-    alerts = []
-
-    if persons >= 5:
-        alerts.append("👥 Crowd detected")
-
-    if vehicles >= 3:
-        alerts.append("🚗 High vehicle density")
-
-    if not alerts:
-        st.success("No critical alerts")
+    if last_alert == "CRITICAL":
+        st.error("🚨 CRITICAL ALERT DETECTED")
+    elif last_alert == "WARNING":
+        st.warning("⚠️ WARNING ALERT")
     else:
-        for alert in alerts:
-            st.warning(alert)
+        st.success("✅ No critical alerts")
 
-    st.caption(f"Last alert time: {time.ctime(last_alert_time)}")
+    if history["time"]:
+        st.caption(
+            f"Last alert time: {time.ctime(history['time'][-1])}"
+        )

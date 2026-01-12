@@ -69,7 +69,6 @@ output/videos/
 To run detection on all videos present in the folder:
 python -m inference.detect_video
 
-
 How to Run (Voice + Zero-Shot Reasoning)
 ### Activate Virtual Environment
 source venv310/bin/activate
@@ -96,6 +95,19 @@ Live video inference, FPS & analytics, Scene context, Alerts, Summary view
 output/images/ → detected images
 output/videos/ → detected videos
 output/image_reasoning/ → JSON reasoning outputs
+
+### sample outputs..
+![Image Detection 1](assets/demo_image1.jpg)
+![Image Detection 3](assets/demo_image3.jpg)
+
+### 🎥 Video Detection Demo
+### Market Scene Detection
+Live crowded market Detection with FPS, Counts & Alert System:
+![Market Video Detection](assets/market_demo.gif)
+
+### Highway Scene Detection
+Live Highway Traffic Detection with FPS, Counts & Alert System:
+![Highway Video Detection](assets/highway_demo.gif)
 
 ### Why This Project Matters
 Designed like a real system, not a notebook demo

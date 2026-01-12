@@ -19,6 +19,11 @@ from components.charts import render_charts
 from components.alerts_ui import render_alerts
 from components.summary import render_summary
 
+# ================= CONSTANTS =================
+VEHICLE_CLASSES = {
+    "car", "bus", "truck", "motorcycle", "motorbike", "bicycle", "van"
+}
+
 # ================= PAGE CONFIG =================
 st.set_page_config(
     page_title="WorldSense-AI",
@@ -26,14 +31,22 @@ st.set_page_config(
     layout="wide"
 )
 
-# ================= SESSION INIT =================
+# ================= SESSION INIT (SAFE) =================
 if "history" not in st.session_state:
-    st.session_state.history = {
-        "time": [],
-        "persons": [],
-        "vehicles": [],
-        "total": []
-    }
+    st.session_state.history = {}
+
+DEFAULT_HISTORY = {
+    "time": [],
+    "persons": [],
+    "vehicles": [],
+    "total": [],
+    "scene": [],
+    "alerts": []
+}
+
+for k, v in DEFAULT_HISTORY.items():
+    if k not in st.session_state.history:
+        st.session_state.history[k] = v
 
 # ================= MODEL =================
 @st.cache_resource
@@ -54,28 +67,33 @@ tabs = st.tabs([
 ])
 
 confidence, uploaded_file, start = render_sidebar()
-
-# ================= ANALYTICS OBJECT =================
 analytics = Analytics()
 
 # ================= LIVE DETECTION =================
 with tabs[0]:
 
-    # ---------------- VIDEO ----------------
+    # ================= VIDEO =================
     if uploaded_file and start and uploaded_file.type == "video/mp4":
+
         temp = tempfile.NamedTemporaryFile(delete=False)
         temp.write(uploaded_file.read())
         cap = cv2.VideoCapture(temp.name)
 
         video_col, info_col = st.columns([5, 2])
         frame_box = video_col.empty()
+        info_box = info_col.empty()
 
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
                 break
 
-            results = model(frame, conf=confidence)
+            results = model(
+                frame,
+                conf=min(confidence, 0.35),
+                iou=0.5
+            )
+
             annotated = results[0].plot()
 
             counts = analytics.count_objects(
@@ -85,18 +103,30 @@ with tabs[0]:
 
             fps = analytics.update_fps()
 
+            persons = counts.get("person", 0)
             vehicles = sum(
-                counts.get(v, 0)
-                for v in ["car", "bus", "truck", "motorcycle"]
+                counts.get(cls, 0) for cls in VEHICLE_CLASSES
             )
 
             scene, context = infer_scene(counts)
 
-            # ---- SAVE HISTORY ----
+            # ================= ALERT LOGIC =================
+            alert_level = "NORMAL"
+            if persons >= 12:
+                alert_level = "CRITICAL"
+            elif persons >= 8:
+                alert_level = "WARNING"
+
+            if scene in ["Market", "Crowded Street", "Public Gathering"] and persons >= 10:
+                alert_level = "CRITICAL"
+
+            # ================= SAVE HISTORY (CORRECT WAY) =================
             st.session_state.history["time"].append(time.time())
-            st.session_state.history["persons"].append(counts.get("person", 0))
+            st.session_state.history["persons"].append(persons)
             st.session_state.history["vehicles"].append(vehicles)
             st.session_state.history["total"].append(sum(counts.values()))
+            st.session_state.history["scene"].append(scene)
+            st.session_state.history["alerts"].append(alert_level)
 
             frame_box.image(
                 annotated,
@@ -104,32 +134,39 @@ with tabs[0]:
                 use_container_width=True
             )
 
-            with info_col:
-                st.markdown(
-                    f"""
-                    <div style="padding:15px;border-radius:10px;background:#111;">
-                        <h4>FPS</h4>
-                        <h2>{fps}</h2>
-                        <hr>
-                        <b>Scene:</b> {scene}<br>
-                        <b>Context:</b> {context}
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+            info_box.markdown(
+                f"""
+                <div style="padding:15px;border-radius:10px;background:#111;">
+                    <h4>FPS</h4>
+                    <h2>{fps:.2f}</h2>
+                    <hr>
+                    <b>Persons:</b> {persons}<br>
+                    <b>Vehicles:</b> {vehicles}<br>
+                    <b>Scene:</b> {scene}<br>
+                    <b>Alert:</b> <span style="color:red;">{alert_level}</span>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
         cap.release()
         st.success("✅ Live Video Detection Completed")
 
-    # ---------------- IMAGE ----------------
+    # ================= IMAGE =================
     elif uploaded_file and start and uploaded_file.type.startswith("image"):
+
         image_bytes = uploaded_file.read()
         image = cv2.imdecode(
             np.frombuffer(image_bytes, np.uint8),
             cv2.IMREAD_COLOR
         )
 
-        results = model(image, conf=confidence)
+        results = model(
+            image,
+            conf=min(confidence, 0.35),
+            iou=0.5
+        )
+
         annotated = results[0].plot()
 
         counts = analytics.count_objects(
@@ -137,18 +174,26 @@ with tabs[0]:
             model.names
         )
 
+        persons = counts.get("person", 0)
         vehicles = sum(
-            counts.get(v, 0)
-            for v in ["car", "bus", "truck", "motorcycle"]
+            counts.get(cls, 0) for cls in VEHICLE_CLASSES
         )
 
         scene, context = infer_scene(counts)
 
-        # ---- SAVE HISTORY (IMAGE) ----
+        alert_level = "NORMAL"
+        if persons >= 10:
+            alert_level = "CRITICAL"
+        elif persons >= 6:
+            alert_level = "WARNING"
+
+        # ================= SAVE HISTORY =================
         st.session_state.history["time"].append(time.time())
-        st.session_state.history["persons"].append(counts.get("person", 0))
+        st.session_state.history["persons"].append(persons)
         st.session_state.history["vehicles"].append(vehicles)
         st.session_state.history["total"].append(sum(counts.values()))
+        st.session_state.history["scene"].append(scene)
+        st.session_state.history["alerts"].append(alert_level)
 
         img_col, info_col = st.columns([5, 2])
 
@@ -158,19 +203,20 @@ with tabs[0]:
             use_container_width=True
         )
 
-        with info_col:
-            st.markdown(
-                f"""
-                <div style="padding:15px;border-radius:10px;background:#111;">
-                    <h4>Total Objects</h4>
-                    <h2>{sum(counts.values())}</h2>
-                    <hr>
-                    <b>Scene:</b> {scene}<br>
-                    <b>Context:</b> {context}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+        info_col.markdown(
+            f"""
+            <div style="padding:15px;border-radius:10px;background:#111;">
+                <h4>Total Objects</h4>
+                <h2>{sum(counts.values())}</h2>
+                <hr>
+                <b>Persons:</b> {persons}<br>
+                <b>Vehicles:</b> {vehicles}<br>
+                <b>Scene:</b> {scene}<br>
+                <b>Alert:</b> <span style="color:red;">{alert_level}</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         st.success("✅ Image Analysis Completed")
 
