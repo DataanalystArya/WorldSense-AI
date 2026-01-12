@@ -7,7 +7,7 @@ def run_webcam_detection(
     model_path="models/yolov8n.pt",
     device="cuda"
 ):
-    print("📷 Starting webcam...")
+    print("Starting webcam...")
     print("Press 'q' to quit")
 
     # Load model
@@ -17,7 +17,7 @@ def run_webcam_detection(
     cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
-        print("❌ Webcam not accessible")
+        print(" Webcam not accessible")
         return
 
     while True:
@@ -42,7 +42,7 @@ def run_webcam_detection(
 
     cap.release()
     cv2.destroyAllWindows()
-    print("🛑 Webcam stopped")
+    print(" Webcam stopped")
 
 
 if __name__ == "__main__":

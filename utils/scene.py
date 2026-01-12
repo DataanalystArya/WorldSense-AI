@@ -3,8 +3,8 @@ def infer_scene(counts):
     vehicles = sum(counts.get(v, 0) for v in ["car", "bus", "truck", "motorcycle"])
 
     if persons >= 6:
-        return "🚨 Crowd Detected", "High Risk Public Area"
+        return " Crowd Detected", "High Risk Public Area"
     elif vehicles > persons:
-        return "🚗 Traffic Scene", "Urban / Highway Monitoring"
+        return " Traffic Scene", "Urban / Highway Monitoring"
     else:
-        return "📹 General Surveillance", "Normal Activity"
+        return " General Surveillance", "Normal Activity"

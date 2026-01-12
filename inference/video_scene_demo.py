@@ -22,7 +22,7 @@ clip_model.eval()
 memory = TemporalMemory()
 
 # -------- INPUT VIDEO --------
-video_path = input("\n🎥 Enter video path: ").strip()
+video_path = input("\n Enter video path: ").strip()
 
 # -------- RUN SCENE UNDERSTANDING --------
 scene_result = video_scene_understanding(
@@ -41,7 +41,7 @@ scene_result["why"] = generate_why_explanation(
 )
 scene_result["event_summary"] = generate_event_summary(scene_result)
 
-print("\n🎬 VIDEO SCENE UNDERSTANDING RESULT:")
+print("\n VIDEO SCENE UNDERSTANDING RESULT:")
 print(json.dumps(scene_result, indent=2))
 
 print("\n TEMPORAL MEMORY SUMMARY:")

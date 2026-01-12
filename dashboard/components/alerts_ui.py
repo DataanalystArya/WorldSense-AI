@@ -24,7 +24,7 @@ def render_alerts(history):
         alerts.append("🚗 High vehicle density")
 
     if not alerts:
-        st.success("✅ No critical alerts")
+        st.success("No critical alerts")
     else:
         for alert in alerts:
             st.warning(alert)
