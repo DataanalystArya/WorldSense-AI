@@ -7,14 +7,14 @@ models,inference pipelines,scene understanding
 ,reasoning and utilities are all clearly separated.The focus of this project is not only “what is visible”, but also “what is happening, why it is happening, and what this scene means.”
 
 ### Features Implemented
-### Core Detection:
-Image Object Detection (YOLOv8), Video Object Detection (single & batch), Multi-object detection, Automatic saving of output images and videos, CLI-based execution
+### Object Detection:
+Image Object Detection (YOLOv8), Video Object Detection (single & batch), Multi-object detection with confidence scores, Automatic saving of annotated output images and videos, CLI-based execution for reproducibility.
 
 ### Scene Intelligence (New):
 Video-level scene understanding using CLIP, Confusion-aware scene output (top competing scenes), Confidence-level estimation (LOW / MEDIUM / HIGH), Human-readable “WHY” explanations for predictions
 
-### Live & Real-Time (Experimental):
-Live webcam object detection, Real-time inference loop (OpenCV based)
+### Live & Real-Time Analytics (Experimental):
+Live webcam object detection, Real-time inference loop (OpenCV based), Live FPS calculation, Object count tracking( people, vehicles, total), temporal history logging,summary statistics generation.
 
 ### Image Reasoning:
 Reasoning over objects and context in an image, Structured JSON-based outputs, Answers questions like “What is happening in this image?”
@@ -24,6 +24,9 @@ Uses CLIP vision–language embeddings, Can reason about unseen or unknown scene
 
 ### Voice Interface (Experimental):
 Voice input support, Voice-based output responses, Foundation for a multimodal AI assistant
+
+### Alerts & Event Awareness
+Rule-based alert triggers, Scene-dependent alert logic, Event summaries over time
 
 ### Structured Outputs:
 Clean and readable JSON output, Confidence scores, Top scene candidates, Reasoning and explanations
@@ -84,8 +87,22 @@ output/image_reasoning/
 ### Voice Interface (Experimental)
 python voice/voice_input.py
 
-### Future Work
-Object tracking (DeepSORT / ByteTrack),Event-level understanding,Temporal memory & video Q&A,Voice-based interaction,Web dashboard (Streamlit),Performance analytics & logs
+### 6️⃣ Streamlit Dashboard (Experimental)
+streamlit run dashboard/app.py
+Includes:
+Live video inference, FPS & analytics, Scene context, Alerts, Summary view
+
+### Outputs
+output/images/ → detected images
+output/videos/ → detected videos
+output/image_reasoning/ → JSON reasoning outputs
+
+### Why This Project Matters
+Designed like a real system, not a notebook demo
+Combines vision + language + reasoning
+Zero-shot capable (no hardcoded scenes)
+Extensible toward tracking, memory & video Q&A
+Strong foundation for applied CV / AI roles
 
 ### Author
 Built with ❤️ by Arya Verma
